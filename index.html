@@ -4,23 +4,38 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
     <title>Library</title>
   </head>
   <body>
-    <table>
-      <thead>
-        <tr>MY LIBRARY</tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>AUTHOR</th>
-          <th>TITLE</th>
-          <th>NUM. OF PAGES</th>
-          <th>READ?</th>
-        </tr>
-    </tbody>
-      </table >
-    </table>
+    
+    <details>
+      <summary>Add a new book!</summary>
+      <form class="invisible" action="">
+      <label for="author">Author: <input type="text" id="author" required/></label>
+      <label for="title">Title: <input type="text" id="title" required/></label>
+      <label for="nb-pages">Number of pages: <input type="number" id="nb-pages"/></label>
+      <label for="read">Read? <input type="checkbox" id="read" value="read"></label>
+      <input type="submit" id="submit-form" value="Submit"/>
+    </form></details>
+    
+    <div class="table-wrapper">
+      <table>
+        <caption>My Library</caption>
+        <thead>
+          <tr>
+            <th>AUTHOR</th>
+            <th>TITLE</th>
+            <th>PAGES</th>
+            <th>READ?</th>
+            <th>DELETE?</th>
+          </tr>
+        </thead>
+        <tbody>
+      
+        </tbody>
+      </table>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

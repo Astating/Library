@@ -1,0 +1,113 @@
+body {
+    background-color: rgb(47, 47, 47);
+    color: lightyellow;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 5vh;
+    padding:5vh;
+}
+
+/* DETAILS BOX*/
+summary {
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0.4rem;
+    background:darkslategray;
+    border-radius:10px;
+
+}
+
+details:not([open]) summary {
+    border:solid 0.1rem darkkhaki;
+}
+
+details summary:hover {
+    color: yellow;
+}
+
+details {
+    margin-bottom: 0.5rem;
+    width: 410px;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+details[open] {
+    border:solid 0.1rem darkkhaki;
+
+}
+
+/* FORM */
+label {
+    padding:10px;
+    width: calc(99% - 20px);
+    position: relative;
+}
+
+
+label:nth-child(even) {
+    background: darkslategray;
+}
+
+form {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+label input {
+    position: absolute;
+    right: 0px;
+    
+}
+
+[type="submit"] {
+    margin: 5px;
+    padding: 5px 10px;
+    background: darkslategray;
+    color: darkkhaki;
+}
+
+[type="submit"]:hover {
+    background:darkkhaki;
+    color:darkslategray;
+}
+
+/* TABLE */
+
+
+.table-wrapper {
+    border: solid darkkhaki 0.1rem;
+}
+
+tbody tr:nth-child(odd) {
+    background: darkslategray;
+}
+
+caption {
+    background: darkslategray;
+    font-weight: bold;
+    text-decoration: underline;
+    padding: 10px;
+}
+
+th {
+    text-decoration: underline;
+    padding:10px;
+}
+
+td {
+    padding: 6px;
+}
+
+.read-td, .rm-td {
+    text-align:center;
+}
+
+button {
+    height:100%;
+    width:50%;
+}
+

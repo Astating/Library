@@ -1,3 +1,5 @@
+"use strict"
+
 let myLibrary = [];
 
 function Book(author, title, numPages, isRead) {
@@ -16,8 +18,11 @@ function addBookToLibrary(author, title, numPages, isRead) {
 
 function displayLibrary() {
     const table = document.querySelector('tbody');
-    for (book of myLibrary) {
+    table.textContent = '';
+
+    for (const book of myLibrary) {
         const newRow = document.createElement('tr');
+        newRow.dataset.index = myLibrary.indexOf(book);
 
         const author = document.createElement('td');
         author.textContent = book.author;
@@ -32,14 +37,63 @@ function displayLibrary() {
         newRow.appendChild(pages);
 
         const read = document.createElement('td');
-        read.textContent = book.isRead ? "Yes" : "No";
+        read.className = "read-td";
+        const readBtn = document.createElement('input');
+        readBtn.setAttribute("type", "checkbox");
+        readBtn.checked = book.isRead;
+        readBtn.addEventListener('click', updateReadStatus);
+        read.appendChild(readBtn);
         newRow.appendChild(read);
+
+        const rmBook = document.createElement('td');
+        rmBook.className = "rm-td";
+        const rmBookBtn = document.createElement('button');
+        rmBookBtn.textContent = "x";
+        rmBookBtn.addEventListener('click', removeBook);
+        rmBook.appendChild(rmBookBtn);
+        newRow.appendChild(rmBook);
 
         table.appendChild(newRow);
     }
 }
 
-addBookToLibrary("Bernard Placeholder von Longname", "Weshwesh", 128, true);
+function handleForm(e) {
+  const form = e.target;
+
+  const author = form.author.value;
+
+  const title = form.title.value;
+
+  const nbPages = Number(form["nb-pages"].value);
+
+  const read = form.read.checked;
+
+  form.reset();
+  addBookToLibrary(author, title, nbPages, read);
+  displayLibrary();
+  event.preventDefault();
+}
+
+function removeBook(e) {
+  const row = e.srcElement.parentNode.parentNode;
+  const index = row.dataset.index;
+  myLibrary.splice(index, 1);
+  displayLibrary();
+}
+
+function updateReadStatus(e) {
+  const row = e.srcElement.parentNode.parentNode;
+  const index = row.dataset.index;
+  myLibrary[index].isRead = e.srcElement.checked;
+  displayLibrary();
+}
+
+
+const bookForm = document.querySelector('form');
+bookForm.addEventListener('submit', handleForm);
+
+
+addBookToLibrary("Bernard Placeholder von Longname", "My Life", 128, true);
 addBookToLibrary("Cesare Pavese", "Nuit de fête", 622, false);
 
 displayLibrary();
