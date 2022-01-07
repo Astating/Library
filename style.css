@@ -142,6 +142,7 @@ th {
 td {
     padding: 6px;
     border: solid slategray 0.1rem;
+    overflow-wrap: break-word;
 }
 
 .read-td, .rm-td {
