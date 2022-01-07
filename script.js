@@ -26,6 +26,7 @@ function displayLibrary() {
 
         const author = document.createElement('td');
         author.textContent = book.author;
+        author.className = "author-td";
         newRow.appendChild(author);
 
         const title = document.createElement('td');
