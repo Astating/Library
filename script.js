@@ -94,7 +94,7 @@ const bookForm = document.querySelector('form');
 bookForm.addEventListener('submit', handleForm);
 
 
-addBookToLibrary("Bernard Placeholder von Longname", "My Life", 128, true);
-addBookToLibrary("Cesare Pavese", "Nuit de fête", 622, false);
+addBookToLibrary("Bernard Placeholder von Longname", "My Life and Works and Long Titles", 128, true);
+addBookToLibrary("Mark Twain", "Huckleberry Finn", 622, false);
 
 displayLibrary();
