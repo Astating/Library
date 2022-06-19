@@ -1,6 +1,5 @@
 "use strict"
 
-let myLibrary = [];
 
 class Book {
   constructor(author, title, numPages, isRead) {
@@ -12,21 +11,29 @@ class Book {
   }
 }
 
+class Library {
+  constructor(books = []){
+    this.myLibrary = books;
+  }
 
+  addBookToLibrary(author, title, numPages, isRead) {
+    // do stuff here
+      const newBook = new Book(author, title, numPages, isRead);
+      this.myLibrary.push(newBook);
+  }
 
-function addBookToLibrary(author, title, numPages, isRead) {
-  // do stuff here
-    const newBook = new Book(author, title, numPages, isRead);
-    myLibrary.push(newBook);
-}
+  displayForm() {
+    const bookForm = document.querySelector('form');
+    bookForm.addEventListener('submit', this.handleForm.bind(this));
+  }
 
-function displayLibrary() {
+  displayLibrary() {
     const table = document.querySelector('tbody');
     table.textContent = '';
 
-    for (const book of myLibrary) {
+    for (const book of this.myLibrary) {
         const newRow = document.createElement('tr');
-        newRow.dataset.index = myLibrary.indexOf(book);
+        newRow.dataset.index = this.myLibrary.indexOf(book);
 
         const author = document.createElement('td');
         author.textContent = book.author;
@@ -46,7 +53,7 @@ function displayLibrary() {
         const readBtn = document.createElement('input');
         readBtn.setAttribute("type", "checkbox");
         readBtn.checked = book.isRead;
-        readBtn.addEventListener('click', updateReadStatus);
+        readBtn.addEventListener('click', this.updateReadStatus.bind(this));
         read.appendChild(readBtn);
         newRow.appendChild(read);
 
@@ -54,51 +61,52 @@ function displayLibrary() {
         rmBook.className = "rm-td";
         const rmBookBtn = document.createElement('button');
         rmBookBtn.textContent = "x";
-        rmBookBtn.addEventListener('click', removeBook);
+        rmBookBtn.addEventListener('click', this.removeBook.bind(this));
         rmBook.appendChild(rmBookBtn);
         newRow.appendChild(rmBook);
 
         table.appendChild(newRow);
     }
+  }
+
+  handleForm(e) {
+    console.log("HELP", this)
+    const form = e.target;
+  
+    const author = form.author.value;
+  
+    const title = form.title.value;
+  
+    const nbPages = Number(form["nb-pages"].value);
+  
+    const read = form.read.checked;
+  
+    form.reset();
+    this.addBookToLibrary(author, title, nbPages, read);
+    this.displayLibrary();
+    event.preventDefault();
+  }
+
+  removeBook(e) {
+    const row = e.srcElement.parentNode.parentNode;
+    const index = row.dataset.index;
+    this.myLibrary.splice(index, 1);
+    this.displayLibrary();
+  }
+
+  updateReadStatus(e) {
+    const row = e.srcElement.parentNode.parentNode;
+    const index = row.dataset.index;
+    this.myLibrary[index].isRead = e.srcElement.checked;
+    this.displayLibrary();
+  }
+
 }
 
-function handleForm(e) {
-  const form = e.target;
-
-  const author = form.author.value;
-
-  const title = form.title.value;
-
-  const nbPages = Number(form["nb-pages"].value);
-
-  const read = form.read.checked;
-
-  form.reset();
-  addBookToLibrary(author, title, nbPages, read);
-  displayLibrary();
-  event.preventDefault();
-}
-
-function removeBook(e) {
-  const row = e.srcElement.parentNode.parentNode;
-  const index = row.dataset.index;
-  myLibrary.splice(index, 1);
-  displayLibrary();
-}
-
-function updateReadStatus(e) {
-  const row = e.srcElement.parentNode.parentNode;
-  const index = row.dataset.index;
-  myLibrary[index].isRead = e.srcElement.checked;
-  displayLibrary();
-}
+let theLibrary = new Library();
 
 
-const bookForm = document.querySelector('form');
-bookForm.addEventListener('submit', handleForm);
-
-
-addBookToLibrary("Bernard Placeholder von Longname", "My Life and Works and Long Titles", 128, true);
-addBookToLibrary("Mark Twain", "Huckleberry Finn", 622, false);
-
-displayLibrary();
+theLibrary.addBookToLibrary("Bernard Placeholder von Longname", "My Life and Works and Long Titles", 128, true);
+theLibrary.addBookToLibrary("Mark Twain", "Huckleberry Finn", 622, false);
+theLibrary.displayForm();
+theLibrary.displayLibrary();
